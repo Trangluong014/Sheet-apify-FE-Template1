@@ -4,6 +4,11 @@ import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
+import AddIcon from '@mui/icons-material/Add';
+import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
+import GroupIcon from '@mui/icons-material/Group';
+import HistoryIcon from '@mui/icons-material/History';
+
 import ArrivingNextTab from "./ArrivingNextTab";
 import CurrentlyHereTab from "./CurrentlyHereTab";
 import NewVisitorTab from "./NewVisitorTab";
@@ -37,15 +42,19 @@ function a11yProps(index) {
 }
 
 function HomePage() {
-  const [tab, setTab] = useState(0);
+  const [tab, setTab] = useState(1);
 
   const handleChange = (event, newValue) => {
     setTab(newValue);
   };
 
+  const tabStyle = { 
+    width: "100%",
+  }
+
   return (
     <Box
-      sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', height: 224 }}
+      sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex' }}
     >
       <Tabs
         orientation="vertical"
@@ -55,21 +64,21 @@ function HomePage() {
         aria-label="Vertical tabs example"
         sx={{ borderRight: 1, borderColor: 'divider' }}
       >
-        <Tab label="New Visitor" {...a11yProps(0)} />
-        <Tab label="Arriving Next" {...a11yProps(1)} />
-        <Tab label="Currently Here" {...a11yProps(2)} />
-        <Tab label="Visit History" {...a11yProps(3)} />
+        <Tab icon={<AddIcon />} label="New Visitor" {...a11yProps(0)} />
+        <Tab icon={<MeetingRoomIcon />} label="Arriving Next" {...a11yProps(1)} />
+        <Tab icon={<GroupIcon />} label="Currently Here" {...a11yProps(2)} />
+        <Tab icon={<HistoryIcon />} label="Visit History" {...a11yProps(3)} />
       </Tabs>
-      <TabPanel value={tab} index={0} style={{ width: "100%" }}>
+      <TabPanel value={tab} index={0} style={tabStyle}>
         <NewVisitorTab />
       </TabPanel>
-      <TabPanel value={tab} index={1} style={{ width: "100%" }}>
+      <TabPanel value={tab} index={1} style={tabStyle}>
         <ArrivingNextTab />
       </TabPanel>
-      <TabPanel value={tab} index={2} style={{ width: "100%" }}>
+      <TabPanel value={tab} index={2} style={tabStyle}>
         <CurrentlyHereTab />
       </TabPanel>
-      <TabPanel value={tab} index={3} style={{ width: "100%" }}>
+      <TabPanel value={tab} index={3} style={tabStyle}>
         <VisitHistoryTab />
       </TabPanel>
     </Box>

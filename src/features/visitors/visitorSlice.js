@@ -115,7 +115,7 @@ export const getUpcomingVisitors = createAsyncThunk(
         params: {
           visited: 0,
           deleted: 0,
-          starttime__gte: new Date().getTime(),
+          endtime__gte: new Date().getTime(),
         }
       });
       return response.data.data;
@@ -149,7 +149,6 @@ export const getPastVisitors = createAsyncThunk(
     if (spreadsheetId) {
       const response = await apiService.get(`/item/${spreadsheetId}`, {
         params: {
-          visited: 1,
           deleted: 0,
           endtime__lte: new Date().getTime(),
         }

@@ -15,26 +15,38 @@ import LoadingScreen from "../components/LoadingScreen";
 
 import { useSelector, useDispatch } from "react-redux";
 
+import { useWebsiteConfig } from "../hooks/useWebsiteConfig";
+
 function MainHeader() {
   const { website } = useSelector(state => state.website);
 
   let navigate = useNavigate();
+  const websiteConfig = useWebsiteConfig();
 
   return (
     <Box style={{ marginBottom: 15 }}>
       <AppBar position="static">
         <Toolbar style={{ display:"flex", justifyContent: "space-between" }}>
-          <Box>
-            <Link
-              color="inherit"
-              aria-label="menu"
-              onClick={() => navigate(`/`)}
-              href="javascript:void(0)"
-              style={{ textDecoration: "none" }}
-            >
-              {website?.name}
-            </Link>
-          </Box>
+          <Link
+            color="inherit"
+            aria-label="menu"
+            href={website?.websiteId 
+              ? `/${website.websiteId}`
+              : "javascript:void(0)"
+            }
+            style={{ 
+              textDecoration: "none",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {websiteConfig.logo && 
+              <img 
+                alt={website?.name || "logo"} 
+                src={websiteConfig.logo} 
+                style={{ height: 32, marginRight: "1rem" }} 
+              />}
+            {website?.name}
+          </Link>
         </Toolbar>
       </AppBar>
     </Box>

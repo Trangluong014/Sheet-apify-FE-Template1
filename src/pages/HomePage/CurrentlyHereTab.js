@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import LoadingScreen from "../../components/LoadingScreen";
 import { getCurrentVisitors, changeSingleVisitor } from "../../features/visitors/visitorSlice";
+import EmptyScreen from "../../components/EmptyScreen"
 import DeleteIcon from "@mui/icons-material/Delete";
 
 function CurrentlyHereTab() {
@@ -24,7 +25,9 @@ function CurrentlyHereTab() {
   
   return <Stack spacing={2} direction="column">
     {visitors && !isLoading
-      ? visitors.map(visitor => <Card key={visitor.rowIndex}>
+      ? visitors.length === 0 
+      ? <EmptyScreen />
+      : visitors.map(visitor => <Card key={visitor.rowIndex}>
         <CardHeader subheader={`Arrived on: ${new Date(visitor.starttime).toLocaleTimeString()} - Checking out at ${new Date(visitor.endtime).toLocaleTimeString()}`} />
         <CardContent>
           <Typography variant="h6">{visitor.firstname} {visitor.lastname}</Typography>

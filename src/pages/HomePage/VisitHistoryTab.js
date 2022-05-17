@@ -13,6 +13,8 @@ import { useSelector, useDispatch } from "react-redux";
 import LoadingScreen from "../../components/LoadingScreen";
 import { getPastVisitors, changeSingleVisitor } from "../../features/visitors/visitorSlice";
 import DeleteIcon from "@mui/icons-material/Delete";
+import EmptyScreen from "../../components/EmptyScreen";
+import { grey } from '@mui/material/colors';
 
 function VisitHistoryTab() {
   const { website } = useSelector(state => state.website);
@@ -24,10 +26,13 @@ function VisitHistoryTab() {
   
   return <Stack spacing={2} direction="column">
     {visitors && !isLoading
-      ? visitors.map(visitor => <Card key={visitor.rowIndex}>
+      ? visitors.length === 0 
+      ? <EmptyScreen />
+      : visitors.map(visitor => <Card key={visitor.rowIndex}>
         <CardHeader subheader={`${new Date(visitor.starttime).toLocaleTimeString()} - ${new Date(visitor.endtime).toLocaleTimeString()}`} />
         <CardContent>
           <Typography variant="h6">{visitor.firstname} {visitor.lastname}</Typography>
+          {!visitor.visited && <Typography variant="body1" color={grey[500]}>Did not arrive</Typography>}
           <Typography variant="body1">{visitor.email}</Typography>
           <Typography variant="body1">{visitor.phone}</Typography>
         </CardContent>
